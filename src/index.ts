@@ -1,5 +1,5 @@
 export class Person {
   sayName (): string {
-    return 'Skinner';
+    return 'Alexandre Skinner';
   }
 };
