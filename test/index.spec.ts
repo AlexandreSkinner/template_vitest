@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest';
-import Person from '@/index';
+import { Person } from '@/index';
 
 describe('teste operacoes aritmeticas', () => {
   test('testa soma', () => {
@@ -16,6 +16,6 @@ describe('teste operacoes aritmeticas', () => {
 describe('teste operacoes Pessoa', () => {
   test('testa Pessoa', () => {
     const person = new Person();
-    expect(person.sayName()).toBe('Skinner');
+    expect(person.sayName()).toBe('Alexandre Skinner');
   });
 });
