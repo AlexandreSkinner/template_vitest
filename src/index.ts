@@ -1,6 +1,5 @@
-class Person {
+export class Person {
   sayName (): string {
     return 'Skinner';
   }
-}
-export default Person;
+};
