@@ -1,15 +1,22 @@
 import { describe, test, expect } from 'vitest';
+import { soma, subtracao, multiplicacao } from '@/one/two/operacoes';
 import { Person } from '@/index';
 
 describe('teste operacoes aritmeticas', () => {
   test('testa soma', () => {
-    expect(1 + 2).toBe(3);
+    const resultado = soma(2, 1);
+    const esperado = 3;
+    expect(resultado).toBe(esperado);
   });
   test('testa subtração', () => {
-    expect(3 - 2).toBe(1);
+    const resultado = subtracao(2, 1);
+    const esperado = 1;
+    expect(resultado).toBe(esperado);
   });
   test('testa multiplicação', () => {
-    expect(3 * 2).toBe(6);
+    const resultado = multiplicacao(2, 3);
+    const esperado = 6;
+    expect(resultado).toBe(esperado);
   });
 });
 
