@@ -5,4 +5,4 @@ dist
 node_modules
 public
 ./data
-jest.config.js
+vitest.config.ts

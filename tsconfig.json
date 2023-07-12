@@ -18,5 +18,6 @@
     },
     "baseUrl": "src"
   },
-  "include": ["src", "test"]
+  "include": ["src", "test", "vitest.config.ts"],
+  "types": ["vitest/globals"]
 }
