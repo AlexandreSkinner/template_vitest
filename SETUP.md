@@ -52,6 +52,7 @@ Este arquivo é inspecionado pelo typescript no momento da compilação
 ```
 {
   "compilerOptions": {
+<<<<<<< HEAD
     "incremental": true,                        // Compilação incremental
     "target": "es2022",                         // Versão do javascript gerada na transpilação
     "module": "ESNext",                         // Tipo do modulo
@@ -64,13 +65,29 @@ Este arquivo é inspecionado pelo typescript no momento da compilação
     "strict": true,                             //
     "skipLibCheck": true,                       // Não realizar check de sintaxe em lib de terceiros
     "forceConsistentCasingInFileNames": true,   //
+=======
+    "incremental": true,
+    "target": "es2022",
+    "module": "CommonJS",
+    "sourceMap": true,
+    "removeComments": true,
+    "esModuleInterop": true,
+    "rootDirs": ["src","test"],
+    "outDir": "./dist",
+    "moduleResolution": "node",
+    "strict": true,
+    "noEmitOnError": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+>>>>>>> c96893a (chore: adiciona ao tsconfig.json instrução p/ não transpilar código com erro)
     "paths": {
       "@/*": ["*"],
       "@/test/*": ["../test/*"]
     },
     "baseUrl": "src"
   },
-  "include": ["src", "test"]
+  "include": ["src", "test", "vitest.config.ts"],
+  "types": ["vitest/globals"]
 }
 ```
 
@@ -96,28 +113,25 @@ Abaixo temos um exemplo do arquivo de configuração do eslint **.eslintrc.json*
 ## Arquivo de configuração do lint (.eslintrc.json)
 ```
 {
-    "env": {
-        "es2021": true,
-        "node": true,
-        "jest": true
-    },
-    "extends": "standard-with-typescript",
-    "overrides": [
-    ],
-    "parserOptions": {
-        "ecmaVersion": "latest",
-        "sourceType": "module",
-        "project": ["./tsconfig.json"]
-    },
-    "parser": "@typescript-eslint/parser",
-    "plugins": ["@typescript-eslint"],
-    "rules": {
-        "@typescript-eslint/semi": "off",
-        "semi": [2, "always"]
-    },
-    "include": [
-      "jest.config.js"
-    ]
+  "env": {
+      "es2021": true,
+      "node": true,
+      "jest": true
+  },
+  "extends": "standard-with-typescript",
+  "overrides": [
+  ],
+  "parserOptions": {
+      "ecmaVersion": "latest",
+      "sourceType": "module",
+      "project": ["./tsconfig.json"]
+  },
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "rules": {
+      "@typescript-eslint/semi": "off",
+      "semi": [2, "always"]
+  }
 }
 ```
 # Instalando o husky
@@ -147,17 +161,21 @@ Abaixo temos um exemplo do arquivo de configuração do eslint **.eslintrc.json*
   ]
 }
 ```
+<<<<<<< HEAD
 # Instalando o Jest.
   Instala o Jest, a biblioteca de tipos para o typescript. Instala também o ts-jest.
+=======
+# Instalando o Vitest.
+  Instala o Vitest, a biblioteca de teste para o typescript.
+>>>>>>> c96893a (chore: adiciona ao tsconfig.json instrução p/ não transpilar código com erro)
 
   O ts-jest é um transformador Jest com suporte a mapa de origem que permite usar Jest para testar projetos escritos em TypeScript.
   Ele oferece suporte a todos os recursos do TypeScript, incluindo verificação de tipo
 ```
   ~/projeto/compras
-  » npm i jest -D
-  » npm i @types/jest -D
-  » npm i ts-jest -D
+  » npm install -D vitest
 ```
+<<<<<<< HEAD
   ## Inicializando o jest.
   Por padrão, o Jest pode ser executado sem nenhum arquivo de configuração, mas não compilará .ts arquivos. Para fazer a transpilação do TypeScript com ts-jest, precisaremos criar um arquivo de configuração que dirá ao Jest para usar uma ts-jestpredefinição.
 
@@ -167,39 +185,37 @@ Abaixo temos um exemplo do arquivo de configuração do eslint **.eslintrc.json*
     » npm jest --init
 ```
 Abaixo temos um exemplo de arquivo de configuração do jest
+=======
+Abaixo temos um exemplo de arquivo de configuração do Vitest
+>>>>>>> c96893a (chore: adiciona ao tsconfig.json instrução p/ não transpilar código com erro)
 
-## Arquivo de configuração do Jest (jest.config.js)
+## Arquivo de configuração do Vitest (vitest.config.js)
 ```
-module.exports = {
-  roots: ['<rootDir>/src'],
-  collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
-  coverageDirectory: 'coverage',
-  testEnvironment: 'node',
-  transform: {
-    '.+\\.ts$': 'ts-jest'
+import { defineConfig } from "vitest/config";
+import path from "path";
+
+export default defineConfig({
+  test: {
+    globals: true,
+    environment: 'node',
   },
-  moduleNameMapper: {
-    '@/(.*)': '<rootDir>/src/$1',
-    '@/test/(.+)': '<rootDir>/test/$1',
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+      "@/test": path.resolve(__dirname, "./test"),
+    },
   },
-  clearMocks: true,
-  coverageProvider: 'v8',
-  testMatch: ['**/*.spec.ts'],
-  roots: [
-    '<rootDir>/src',
-    '<rootDir>/test'
-  ],
-};
+});
 ```
   ## Executando os teste.
   Para executar o jest direto ou através de um script
 ```
   ~/projeto/compras
-  » npx jest
+  » npx vitest
   » npm run <script>
 ```
 
-  ## Snippet para Jest.
+  ## Snippet para Vitest.
   Abaixo temos um snippet para evitarmos digitar código repetido toda vez
   que formos elaborar um teste. O texto do prefixo é chave para "buscar" o snippet.
 ```
@@ -218,13 +234,12 @@ module.exports = {
   }
 }
 ```
-## Script para execução do Jest
+## Script para execução do Vitest
 ```
 "scripts": {
-   "test": "jest --passWithNoTests --runInBand --no-cache",
-   "test:unit": "npm test -- --watchAll",
-   "test:staged": "jest --passWithNoTests",
-   "test:coverage": "npm test -- --coverage"
+    "test": "vitest",
+    "test:staged": "vitest related ./test/*.spec.ts --run",
+    "test:coverage": "vitest run --coverage"
 }
 ```
 # Prepara o buid
